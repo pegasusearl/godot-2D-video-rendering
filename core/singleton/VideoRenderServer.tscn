@@ -1,12 +1,178 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://core/singleton/VideoRenderServer.gd" type="Script" id=1]
+[ext_resource path="res://core/gui/popup/notification.gd" type="Script" id=2]
+[ext_resource path="res://core/font/DejaVuSans.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://core/gui/render_settings/RenderSettings.tscn" type="PackedScene" id=4]
+[ext_resource path="res://core/gui/render_settings/render_directory_select.gd" type="Script" id=5]
+[ext_resource path="res://core/gui/render_settings/batch_render_add_dialog.gd" type="Script" id=6]
 
-[node name="VideoRenderServer" type="Control"]
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 32.0
+content_margin_right = 32.0
+content_margin_top = 24.0
+content_margin_bottom = 24.0
+bg_color = Color( 0.121569, 0.129412, 0.160784, 0.784314 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 3
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+PanelContainer/styles/panel = SubResource( 5 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[node name="VideoRenderServer" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 1 )
+theme = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Layout" type="VBoxContainer" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 28.0
+margin_bottom = 38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuBar" type="PanelContainer" parent="GUI/Layout"]
+margin_right = 1948.0
+margin_bottom = 83.0
+
+[node name="hb" type="HBoxContainer" parent="GUI/Layout/MenuBar"]
+margin_left = 32.0
+margin_top = 24.0
+margin_right = 1916.0
+margin_bottom = 59.0
+
+[node name="HSeparator" type="HSeparator" parent="GUI/Layout/MenuBar/hb"]
+margin_right = 1801.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="GUI/Layout/MenuBar/hb"]
+margin_left = 1805.0
+margin_right = 1884.0
+margin_bottom = 35.0
+text = "Close"
+flat = true
+
+[node name="sc" type="ScrollContainer" parent="GUI/Layout"]
+margin_top = 87.0
+margin_right = 1948.0
+margin_bottom = 1118.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="Menu" type="TabContainer" parent="GUI/Layout/sc"]
+margin_right = 1948.0
+margin_bottom = 1031.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RenderSettings" parent="GUI/Layout/sc/Menu" instance=ExtResource( 4 )]
+
+[node name="Playback" type="CenterContainer" parent="GUI/Layout/sc/Menu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 39.0
+
+[node name="panel" type="PanelContainer" parent="GUI/Layout/sc/Menu/Playback"]
+margin_left = 942.0
+margin_top = 472.0
+margin_right = 1006.0
+margin_bottom = 520.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Layout/sc/Menu/Playback/panel"]
+margin_left = 32.0
+margin_top = 24.0
+margin_right = 164.0
+margin_bottom = 59.0
+
+[node name="Button" type="Button" parent="GUI/Layout/sc/Menu/Playback/panel/HBoxContainer"]
+margin_right = 62.0
+margin_bottom = 35.0
+disabled = true
+text = "Play"
+
+[node name="Button2" type="Button" parent="GUI/Layout/sc/Menu/Playback/panel/HBoxContainer"]
+margin_left = 66.0
+margin_right = 132.0
+margin_bottom = 35.0
+disabled = true
+text = "Stop"
+
+[node name="Popup" type="Control" parent="GUI"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="notification" type="AcceptDialog" parent="GUI/Popup"]
+margin_left = 782.226
+margin_top = 500.726
+margin_right = 1017.23
+margin_bottom = 626.726
+popup_exclusive = true
+dialog_autowrap = true
+script = ExtResource( 2 )
+
+[node name="render_directory" type="FileDialog" parent="GUI/Popup"]
+margin_left = 520.909
+margin_top = 277.972
+margin_right = 1446.91
+margin_bottom = 920.972
+window_title = "Open a Directory"
+mode = 2
+access = 2
+filters = PoolStringArray( "*.png" )
+current_dir = "/tmp"
+current_path = "/tmp/"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="batch_render_add" type="FileDialog" parent="GUI/Popup"]
+visible = true
+margin_left = 479.785
+margin_top = 365.782
+margin_right = 1248.79
+margin_bottom = 852.782
+window_title = "Open File(s)"
+mode = 1
+filters = PoolStringArray( "*.tscn" )
+current_dir = "res://projects"
+current_path = "res://projects/"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="GUI/Layout/MenuBar/hb/Close" to="." method="_on_Close_pressed"]
+[connection signal="add_queued_scene" from="GUI/Layout/sc/Menu/RenderSettings" to="GUI/Popup/batch_render_add" method="_on_RenderSettings_add_queued_scene"]
+[connection signal="batch_rendering_requested" from="GUI/Layout/sc/Menu/RenderSettings" to="." method="_on_RenderSettings_batch_rendering_requested"]
+[connection signal="rendering_requested" from="GUI/Layout/sc/Menu/RenderSettings" to="." method="_on_RenderSettings_rendering_requested"]
+[connection signal="select_render_dir" from="GUI/Layout/sc/Menu/RenderSettings" to="GUI/Popup/render_directory" method="_on_RenderSettings_select_render_dir"]
+[connection signal="files_selected" from="GUI/Popup/batch_render_add" to="GUI/Layout/sc/Menu/RenderSettings" method="_on_batch_render_add_files_selected"]

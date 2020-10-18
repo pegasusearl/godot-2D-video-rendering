@@ -2,8 +2,11 @@ extends AnimationPlayer
 class_name AnimationPlayerRenderer
 
 
+signal render_finished (last_frame)
+
+
 # set this to true if you only want to preview instead of actually render.
-export var preview_only:bool = false
+export var preview_only:bool = false # DEPRECATED
 
 export var render_directory:String = "/tmp/render"
 export var file_name:String = "image"
@@ -23,48 +26,47 @@ var frame_delay := 0.1
 
 func _ready():
 	
+	VideoRenderServer.main_render_node = self
 	set_process(false)
+	
+	VideoRenderServer._main_render_node_is_ready()
+	
+	return
+	#DEPRECATED
 	
 	if preview_only:
 		play(animation_to_render)
 		connect("animation_finished",self,"_preview_ended")
 		return
-	
-	prepare_to_record()
 
 
 func _preview_ended(animation_name):
-	get_tree().quit()
+	play(current_animation)
 
 
 func prepare_to_record():
 	if autoplay != "":
 		print("AUTOPLAY IS ON!! TURN IT OFF!! ",autoplay)
-		get_tree().quit()
-		return
+		return str("AUTOPLAY IS ON!! TURN IT OFF!! ",autoplay)
 	
 	fps = abs(fps)
 	if fps == 0:
 		print("FPS is 0! This is animation man! Aborting...")
-		get_tree().quit()
-		return
+		return str("FPS is 0! This is animation man! Aborting...")
 	
 	if file_name == "":
 		print("File name is blank you idiot! How do you even make that mistake?! There is a default name. Aborting...")
-		get_tree().quit()
-		return
+		return str("File name is blank you idiot! How do you even make that mistake?! There is a default name. Aborting...")
 	
 	if !has_animation(animation_to_render):
 		print("Animation ",animation_to_render," does not exist! Aborting...")
-		get_tree().quit()
-		return
+		return str("Animation ",animation_to_render," does not exist! Aborting...")
 	
 	var directory: = Directory.new()
 	var err = directory.make_dir(render_directory)
 	if ![OK,ERR_ALREADY_EXISTS].has(err):
 		print("Cannot make dir in ",render_directory," error code ",err)
-		get_tree().quit()
-		return
+		return str("Cannot make dir in ",render_directory," error code ",err)
 	
 	
 	file_name = file_name.trim_suffix(".png")
@@ -78,10 +80,13 @@ func prepare_to_record():
 	frame_delay = 1.0/fps
 	current_duration = 0.0
 	
-	call_deferred("start_recording")
+	# call_deferred("start_recording")
+	return OK
 
 
+var first_frame = true
 func start_recording():
+	first_frame = true
 	set_process(true)
 
 
@@ -96,14 +101,18 @@ func record():
 	var image = get_viewport().get_texture().get_data()
 	
 	image.flip_y()
-	image.save_png(render_directory+"/"+file_name+str(frame)+".png")
+	if !first_frame:
+		image.save_png(render_directory+"/"+file_name+str(frame)+".png")
+	else:
+		first_frame = false
+	
+	frame_number += 1
 	
 	if current_duration >= length:
 		print("DONE!!")
-		get_tree().quit()
+		emit_signal("render_finished",frame_number)
 		set_process(false)
 	
-	frame_number += 1
 	current_duration += frame_delay
 	VideoRenderServer.emit_signal("progress_duration",frame_delay)
 	

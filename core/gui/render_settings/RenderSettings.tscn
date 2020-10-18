@@ -1,0 +1,159 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://core/gui/render_settings/RenderSettings.gd" type="Script" id=1]
+[ext_resource path="res://core/gui/render_settings/batch_renderer.gd" type="Script" id=2]
+
+[node name="RenderSettings" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 39.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="panel" type="PanelContainer" parent="."]
+margin_left = 710.0
+margin_top = 410.0
+margin_right = 1210.0
+margin_bottom = 630.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="vb" type="VBoxContainer" parent="panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 493.0
+margin_bottom = 213.0
+custom_constants/separation = 12
+
+[node name="Label" type="Label" parent="panel/vb"]
+margin_right = 486.0
+margin_bottom = 14.0
+text = "Render Settings"
+
+[node name="HSeparator" type="HSeparator" parent="panel/vb"]
+margin_top = 26.0
+margin_right = 486.0
+margin_bottom = 30.0
+
+[node name="settings" type="GridContainer" parent="panel/vb"]
+margin_top = 42.0
+margin_right = 486.0
+margin_bottom = 122.0
+custom_constants/hseparation = 10
+columns = 3
+
+[node name="renderdir_title" type="Label" parent="panel/vb/settings"]
+margin_top = 5.0
+margin_right = 108.0
+margin_bottom = 19.0
+text = "Render Directory"
+
+[node name="render_directory" type="LineEdit" parent="panel/vb/settings"]
+margin_left = 118.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "/tmp/render"
+
+[node name="browse" type="Button" parent="panel/vb/settings"]
+margin_left = 462.0
+margin_right = 486.0
+margin_bottom = 24.0
+text = "..."
+
+[node name="filename_title" type="Label" parent="panel/vb/settings"]
+margin_top = 33.0
+margin_right = 108.0
+margin_bottom = 47.0
+text = "File Name"
+
+[node name="file_name" type="LineEdit" parent="panel/vb/settings"]
+margin_left = 118.0
+margin_top = 28.0
+margin_right = 452.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+placeholder_text = "image"
+
+[node name="empty" type="Control" parent="panel/vb/settings"]
+margin_left = 462.0
+margin_top = 28.0
+margin_right = 486.0
+margin_bottom = 52.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps_title" type="Label" parent="panel/vb/settings"]
+margin_top = 61.0
+margin_right = 108.0
+margin_bottom = 75.0
+text = "Frame rate"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps" type="SpinBox" parent="panel/vb/settings"]
+margin_left = 118.0
+margin_top = 56.0
+margin_right = 452.0
+margin_bottom = 80.0
+min_value = 1.0
+max_value = 144.0
+value = 12.0
+rounded = true
+suffix = "fps"
+
+[node name="HSeparator2" type="HSeparator" parent="panel/vb"]
+margin_top = 134.0
+margin_right = 486.0
+margin_bottom = 138.0
+
+[node name="batch_renderer" type="VBoxContainer" parent="panel/vb"]
+margin_top = 150.0
+margin_right = 486.0
+margin_bottom = 174.0
+script = ExtResource( 2 )
+
+[node name="active" type="CheckBox" parent="panel/vb/batch_renderer"]
+margin_right = 486.0
+margin_bottom = 24.0
+text = "Render in batch"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hb" type="HBoxContainer" parent="panel/vb/batch_renderer"]
+visible = false
+margin_top = 28.0
+margin_right = 486.0
+margin_bottom = 328.0
+
+[node name="list" type="ItemList" parent="panel/vb/batch_renderer/hb"]
+margin_right = 447.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 300 )
+size_flags_horizontal = 3
+
+[node name="add_scene_queue" type="Button" parent="panel/vb/batch_renderer/hb"]
+margin_left = 451.0
+margin_right = 486.0
+margin_bottom = 300.0
+text = "add"
+
+[node name="action" type="HBoxContainer" parent="panel/vb"]
+margin_top = 186.0
+margin_right = 486.0
+margin_bottom = 206.0
+alignment = 1
+
+[node name="start_render" type="Button" parent="panel/vb/action"]
+margin_left = 210.0
+margin_right = 276.0
+margin_bottom = 20.0
+text = "RENDER!"
+[connection signal="pressed" from="panel/vb/settings/browse" to="." method="_on_browse_pressed"]
+[connection signal="toggled" from="panel/vb/batch_renderer/active" to="panel/vb/batch_renderer" method="_on_active_toggled"]
+[connection signal="pressed" from="panel/vb/batch_renderer/hb/add_scene_queue" to="." method="_on_add_scene_queue_pressed"]
+[connection signal="pressed" from="panel/vb/action/start_render" to="." method="_on_start_render_pressed"]
