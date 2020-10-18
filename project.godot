@@ -15,12 +15,18 @@ _global_script_classes=[ {
 "path": "res://core/clip/AnimatedSpriteClip.gd"
 }, {
 "base": "AnimationPlayer",
+"class": "AnimationPlayerClip",
+"language": "GDScript",
+"path": "res://core/clip/AnimationPlayerClip.gd"
+}, {
+"base": "AnimationPlayer",
 "class": "AnimationPlayerRenderer",
 "language": "GDScript",
 "path": "res://core/AnimationPlayerRenderer.gd"
 } ]
 _global_script_class_icons={
 "AnimatedSpriteClip": "",
+"AnimationPlayerClip": "",
 "AnimationPlayerRenderer": ""
 }
 

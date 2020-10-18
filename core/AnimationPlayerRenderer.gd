@@ -2,8 +2,12 @@ extends AnimationPlayer
 class_name AnimationPlayerRenderer
 
 
+# set this to true if you only want to preview instead of actually render.
+export var preview_only:bool = false
+
 export var render_directory:String = "/tmp/render"
 export var file_name:String = "image"
+
 
 var savepath:String
 
@@ -21,6 +25,19 @@ func _ready():
 	
 	set_process(false)
 	
+	if preview_only:
+		play(animation_to_render)
+		connect("animation_finished",self,"_preview_ended")
+		return
+	
+	prepare_to_record()
+
+
+func _preview_ended(animation_name):
+	get_tree().quit()
+
+
+func prepare_to_record():
 	if autoplay != "":
 		print("AUTOPLAY IS ON!! TURN IT OFF!! ",autoplay)
 		get_tree().quit()
