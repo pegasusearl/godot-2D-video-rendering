@@ -37,7 +37,7 @@ config/icon="res://core/icon.png"
 
 [autoload]
 
-VideoRenderServer="*res://core/singleton/VideoRenderServer.gd"
+VideoRenderServer="*res://core/singleton/VideoRenderServer.tscn"
 
 [display]
 

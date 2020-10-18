@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 var mode
 enum Mode {RENDER,PREVIEW}
