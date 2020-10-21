@@ -40,9 +40,9 @@ func start_rendering(render_dir, file_name, fps,starting_frame:int = 0):
 		print("[ERROR] ",err)
 		return
 	
-	main_render_node.start_recording()
-	main_render_node.connect("render_finished",self,"_render_finished")
 	gui.hide()
+	main_render_node.call_deferred("start_recording")
+	main_render_node.connect("render_finished",self,"_render_finished")
 
 
 var batch_frame_count = 0
