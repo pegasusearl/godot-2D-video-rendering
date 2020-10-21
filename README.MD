@@ -8,5 +8,6 @@ It's still under slow development. I plan to add alot of features which will mak
 
 - [x] Multi scene render (Batch Renderer)
 - [ ] Batch Renderer: Different naming system for one straight sequence or separated per scene, for quick revision.
-- [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe.
 - [ ] Tutorial/Docs
+- [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe.
+- [ ] Batch Renderer: Continous offset mode. delta duration from previous scene will still count toward next file.
