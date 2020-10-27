@@ -1,4 +1,3 @@
-
 # Godot-specific ignores
 .import/
 export.cfg
@@ -13,3 +12,6 @@ data_*/
 core/Node2D.tscn
 core/Node2D.gd
 projects/
+
+# Other
+*.backup
