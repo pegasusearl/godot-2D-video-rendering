@@ -6,6 +6,7 @@ signal progress_duration (amount)
 
 onready var notification = $GUI/Popup/notification
 onready var gui = $GUI
+onready var watermark_container = $Watermark
 
 var main_render_node:AnimationPlayerRenderer
 
@@ -36,7 +37,8 @@ func start_rendering(render_dir, file_name, fps,starting_frame:int = 0):
 	main_render_node.frame_number = starting_frame
 	var err = main_render_node.prepare_to_record()
 	
-	if err != OK:
+	
+	if typeof(err) != TYPE_INT or err != OK:
 		print("[ERROR] ",err)
 		return
 	

@@ -27,7 +27,7 @@ var frame_delay := 0.1
 func _ready():
 	
 	VideoRenderServer.main_render_node = self
-	set_physics_process(false)
+	set_process(false)
 	
 	VideoRenderServer._main_render_node_is_ready()
 	
@@ -87,7 +87,7 @@ func prepare_to_record():
 var record_delay := 3
 func start_recording():
 	record_delay = 3
-	set_physics_process(true)
+	set_process(true)
 
 
 func record():
@@ -111,7 +111,7 @@ func record():
 	if current_duration >= length:
 		print("DONE!!")
 		emit_signal("render_finished",frame_number)
-		set_physics_process(false)
+		set_process(false)
 	
 	current_duration += frame_delay
 	VideoRenderServer.emit_signal("progress_duration",frame_delay)
@@ -119,7 +119,7 @@ func record():
 	print("[",current_duration,"/",length,"]")
 
 
-func _physics_process(delta):
+func _process(delta):
 	record()
 
 

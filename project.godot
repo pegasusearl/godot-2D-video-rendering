@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "AnimationPlayerRenderer",
 "language": "GDScript",
 "path": "res://core/AnimationPlayerRenderer.gd"
+}, {
+"base": "Node2D",
+"class": "SequentialModulation",
+"language": "GDScript",
+"path": "res://core/element/SequentialModulation.gd"
 } ]
 _global_script_class_icons={
 "AnimatedSpriteClip": "",
 "AnimationPlayerClip": "",
-"AnimationPlayerRenderer": ""
+"AnimationPlayerRenderer": "",
+"SequentialModulation": ""
 }
 
 [application]

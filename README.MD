@@ -11,3 +11,4 @@ It's still under slow development. I plan to add alot of features which will mak
 - [ ] Tutorial/Docs
 - [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe.
 - [ ] Batch Renderer: Continous offset mode. delta duration from previous scene will still count toward next file.
+- [x] One By One Modulate node.

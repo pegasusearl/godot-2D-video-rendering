@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://core/gui/watermark/Watermark.gd" type="Script" id=1]
+
+[node name="Watermark" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 39.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pc" type="PanelContainer" parent="."]
+margin_left = 786.0
+margin_top = 323.0
+margin_right = 1133.0
+margin_bottom = 718.0
+
+[node name="vb" type="VBoxContainer" parent="pc"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 340.0
+margin_bottom = 388.0
+
+[node name="ItemList" type="ItemList" parent="pc/vb"]
+margin_right = 333.0
+margin_bottom = 333.0
+rect_min_size = Vector2( 333, 333 )
+select_mode = 1
+
+[node name="add_watermark" type="Button" parent="pc/vb"]
+margin_top = 337.0
+margin_right = 333.0
+margin_bottom = 357.0
+text = "Add Watermark"
+
+[node name="remove_selected" type="Button" parent="pc/vb"]
+margin_top = 361.0
+margin_right = 333.0
+margin_bottom = 381.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="pc/vb/add_watermark" to="." method="_on_add_watermark_pressed"]
+[connection signal="pressed" from="pc/vb/remove_selected" to="." method="_on_remove_selected_pressed"]

@@ -25,7 +25,6 @@ func reset_gui():
 
 var delay := 0.0
 func _process(delta):
-	print(delay)
 	delay -= delta
 	if delay < 0.0:
 		gui.hide()
