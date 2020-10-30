@@ -8,10 +8,18 @@ My goal with this tool is to mass-produce cheaply made animations to survive dur
 
 # Todo list
 
+## normal priority
+
 - [x] Multi scene render (Batch Renderer)
 - [ ] Batch Renderer: Different naming system for one straight sequence or separated per scene, for quick revision.
 - [ ] Tutorial/Docs
 - [ ] Demo
-- [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe.
-- [ ] Batch Renderer: Continous offset mode. delta duration from previous scene will still count toward next file.
+
 - [x] One By One Modulate node.
+- [x] Watermark
+- [ ] Save watermark state.
+- [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe. (for now make sure to have keyframe in first frame for every track)
+
+## low priority
+
+- [ ] Batch Renderer: Continous offset mode. delta duration from previous scene will still count toward next file. (for weird timing.)
