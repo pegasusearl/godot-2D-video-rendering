@@ -28,8 +28,8 @@ func _ready():
 
 func _progress_duration(amount:float):
 	if loop:
-		if current_duration >= length_plus_delay:
-			current_duration -= length_plus_delay
+		if current_duration >= length:
+			current_duration -= length
 	current_duration += amount
 	frame = floor(current_duration/frame_delay)
 

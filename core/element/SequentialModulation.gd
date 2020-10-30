@@ -8,6 +8,12 @@ var current_node_id = 0
 var last_node_id_processed = 0
 
 
+func _enter_tree():
+	for child in get_children():
+		child.modulate = Color(1,1,1,0)
+	set_sequence(current_sequence)
+
+
 func set_sequence(new_value:float):
 	var child_count = get_child_count()
 	new_value = clamp(new_value,0.0,child_count+1.0)
