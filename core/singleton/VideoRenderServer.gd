@@ -129,7 +129,6 @@ func image_flush():
 	# Creating extra thread
 	var running_thread = []
 	for i in thread_count -1:
-		print("CREATING NEW THREAD ",i+1)
 		var thread = Thread.new()
 		thread.start(self,"_thread_savepng",jobs_queue.front())
 		jobs_queue.pop_front()
