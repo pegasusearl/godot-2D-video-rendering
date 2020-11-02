@@ -120,7 +120,10 @@ func record():
 	# print("[",current_duration,"/",length,"]")
 
 
+var halt := false
 func _process(delta):
+	if halt:
+		return
 	record()
 
 

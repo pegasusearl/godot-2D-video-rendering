@@ -106,8 +106,7 @@ func image_queue_save(image:Image,path:String):
 
 var thread_count = 1
 func image_flush():
-	var temp = main_render_node.is_processing()
-	main_render_node.set_process(false)
+	main_render_node.halt = true
 	yield(get_tree(),"idle_frame")
 	
 	#-------------------------------------
@@ -150,7 +149,7 @@ func image_flush():
 	
 	queued_images_count = 0
 	queued_images.clear()
-	main_render_node.set_process(temp)
+	main_render_node.halt = false
 
 
 func _thread_savepng(job_list):
