@@ -67,6 +67,10 @@ func _render_finished( last_frame=0 ):
 	match queued_action:
 		Action.NONE:
 			gui.show()
+			
+			# Here render is actually finished
+			image_flush()
+			
 		Action.BATCH_RENDER:
 			if render_queue.size() > 0:
 				batch_frame_count = last_frame
@@ -86,4 +90,75 @@ func _main_render_node_is_ready():
 			render_queue.pop_front()
 			start_rendering(que_render_dir,que_file_name,que_fps,batch_frame_count)
 			
+
+
+# SAVE IMAGE FUNCTIONS
+
+var temp_frames_count := 100
+var queued_images = []
+var queued_images_count := 0
+func image_queue_save(image:Image,path:String):
+	queued_images.append([image,path])
+	queued_images_count += 1
+	if queued_images_count >= 100:
+		image_flush()
+
+
+var thread_count = 1
+func image_flush():
+	var temp = main_render_node.is_processing()
+	main_render_node.set_process(false)
+	yield(get_tree(),"idle_frame")
+	
+	#-------------------------------------
+	
+	# Prepare job listing
+	var jobs_queue = []
+	for i in thread_count:
+		jobs_queue.append([])
+	
+	var id = 0
+	
+	# Assigning jobs
+	for entry in queued_images:
+		#entry[0].save_png(entry[1])
+		jobs_queue[id].append(entry)
+		id += 1
+		if id > thread_count-1:
+			id = 0
+	
+	# Creating extra thread
+	var running_thread = []
+	for i in thread_count -1:
+		print("CREATING NEW THREAD ",i+1)
+		var thread = Thread.new()
+		thread.start(self,"_thread_savepng",jobs_queue.front())
+		jobs_queue.pop_front()
+		running_thread.append(thread)
+	
+	
+	# Main thread rendering
+	var job_list = jobs_queue.front()
+	for entry in job_list:
+		entry[0].save_png(entry[1])
+	
+	# waiting other thread
+	for i in running_thread:
+		i.wait_to_finish()
+	
+	#--------------------------------
+	
+	queued_images_count = 0
+	queued_images.clear()
+	main_render_node.set_process(temp)
+
+
+func _thread_savepng(job_list):
+	for entry in job_list:
+		entry[0].save_png(entry[1])
+	return OK
+
+
+func _on_Render_set_thread(count):
+	thread_count = count
 

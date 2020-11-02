@@ -14,16 +14,16 @@ __meta__ = {
 
 [node name="panel" type="PanelContainer" parent="."]
 margin_left = 710.0
-margin_top = 410.0
+margin_top = 392.0
 margin_right = 1210.0
-margin_bottom = 630.0
+margin_bottom = 648.0
 rect_min_size = Vector2( 500, 0 )
 
 [node name="vb" type="VBoxContainer" parent="panel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 493.0
-margin_bottom = 213.0
+margin_bottom = 249.0
 custom_constants/separation = 12
 
 [node name="Label" type="Label" parent="panel/vb"]
@@ -110,10 +110,30 @@ margin_top = 134.0
 margin_right = 486.0
 margin_bottom = 138.0
 
-[node name="batch_renderer" type="VBoxContainer" parent="panel/vb"]
+[node name="thread_count" type="HBoxContainer" parent="panel/vb"]
 margin_top = 150.0
 margin_right = 486.0
 margin_bottom = 174.0
+
+[node name="Label" type="Label" parent="panel/vb/thread_count"]
+margin_top = 5.0
+margin_right = 84.0
+margin_bottom = 19.0
+text = "Thread Count"
+
+[node name="thread" type="SpinBox" parent="panel/vb/thread_count"]
+margin_left = 88.0
+margin_right = 162.0
+margin_bottom = 24.0
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+align = 1
+
+[node name="batch_renderer" type="VBoxContainer" parent="panel/vb"]
+margin_top = 186.0
+margin_right = 486.0
+margin_bottom = 210.0
 script = ExtResource( 2 )
 
 [node name="active" type="CheckBox" parent="panel/vb/batch_renderer"]
@@ -143,9 +163,9 @@ margin_bottom = 300.0
 text = "add"
 
 [node name="action" type="HBoxContainer" parent="panel/vb"]
-margin_top = 186.0
+margin_top = 222.0
 margin_right = 486.0
-margin_bottom = 206.0
+margin_bottom = 242.0
 alignment = 1
 
 [node name="start_render" type="Button" parent="panel/vb/action"]
@@ -154,6 +174,7 @@ margin_right = 276.0
 margin_bottom = 20.0
 text = "RENDER!"
 [connection signal="pressed" from="panel/vb/settings/browse" to="." method="_on_browse_pressed"]
+[connection signal="value_changed" from="panel/vb/thread_count/thread" to="." method="_on_thread_value_changed"]
 [connection signal="toggled" from="panel/vb/batch_renderer/active" to="panel/vb/batch_renderer" method="_on_active_toggled"]
 [connection signal="pressed" from="panel/vb/batch_renderer/hb/add_scene_queue" to="." method="_on_add_scene_queue_pressed"]
 [connection signal="pressed" from="panel/vb/action/start_render" to="." method="_on_start_render_pressed"]

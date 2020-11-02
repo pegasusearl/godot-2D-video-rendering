@@ -102,7 +102,8 @@ func record():
 	
 	image.flip_y()
 	if record_delay > 0:
-		image.save_png(render_directory+"/"+file_name+str(frame)+".png")
+		VideoRenderServer.image_queue_save(image,render_directory+"/"+file_name+str(frame)+".png")
+		#image.save_png(render_directory+"/"+file_name+str(frame)+".png")
 	else:
 		record_delay -= 1
 	
@@ -116,7 +117,7 @@ func record():
 	current_duration += frame_delay
 	VideoRenderServer.emit_signal("progress_duration",frame_delay)
 	
-	print("[",current_duration,"/",length,"]")
+	# print("[",current_duration,"/",length,"]")
 
 
 func _process(delta):

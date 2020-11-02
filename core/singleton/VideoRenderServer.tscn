@@ -183,7 +183,6 @@ __meta__ = {
 }
 
 [node name="watermark_add" type="FileDialog" parent="GUI/Popup"]
-visible = true
 margin_left = 508.0
 margin_top = 227.0
 margin_right = 1373.0
@@ -202,6 +201,7 @@ __meta__ = {
 [connection signal="batch_rendering_requested" from="GUI/Layout/sc/Menu/Render" to="." method="_on_RenderSettings_batch_rendering_requested"]
 [connection signal="rendering_requested" from="GUI/Layout/sc/Menu/Render" to="." method="_on_RenderSettings_rendering_requested"]
 [connection signal="select_render_dir" from="GUI/Layout/sc/Menu/Render" to="GUI/Popup/render_directory" method="_on_RenderSettings_select_render_dir"]
+[connection signal="set_thread" from="GUI/Layout/sc/Menu/Render" to="." method="_on_Render_set_thread"]
 [connection signal="request_add_watermark" from="GUI/Layout/sc/Menu/Watermark" to="GUI/Popup/watermark_add" method="popup_centered"]
 [connection signal="files_selected" from="GUI/Popup/batch_render_add" to="GUI/Layout/sc/Menu/Render" method="_on_batch_render_add_files_selected"]
 [connection signal="files_selected" from="GUI/Popup/watermark_add" to="GUI/Layout/sc/Menu/Watermark" method="_on_watermark_add_files_selected"]

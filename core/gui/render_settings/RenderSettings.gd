@@ -55,3 +55,8 @@ func _on_add_scene_queue_pressed():
 func _on_batch_render_add_files_selected(paths):
 	for scene_path in paths:
 		$panel/vb/batch_renderer/hb/list.add_item(scene_path)
+
+
+signal set_thread (count)
+func _on_thread_value_changed(value):
+	emit_signal("set_thread",int(value))
