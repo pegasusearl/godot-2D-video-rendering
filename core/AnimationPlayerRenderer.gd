@@ -51,12 +51,12 @@ func prepare_to_record():
 	
 	fps = abs(fps)
 	if fps == 0:
-		print("FPS is 0! This is animation man! Aborting...")
-		return str("FPS is 0! This is animation man! Aborting...")
+		print("FPS is 0. Operation requires at least 1 fps. Aborting...")
+		return str("FPS is 0. Operation requires at least 1 fps. Aborting...")
 	
 	if file_name == "":
-		print("File name is blank you idiot! How do you even make that mistake?! There is a default name. Aborting...")
-		return str("File name is blank you idiot! How do you even make that mistake?! There is a default name. Aborting...")
+		print("File name is blank. That's not supposed to happen, there is a default name. Aborting...")
+		return str("File name is blank. That's not supposed to happen, there is a default name. Aborting...")
 	
 	if !has_animation(animation_to_render):
 		print("Animation ",animation_to_render," does not exist! Aborting...")
