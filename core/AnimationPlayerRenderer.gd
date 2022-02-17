@@ -84,9 +84,7 @@ func prepare_to_record():
 	return OK
 
 
-var record_delay := 3
 func start_recording():
-	record_delay = 3
 	set_process(true)
 
 
@@ -98,14 +96,12 @@ func record():
 	get_viewport().set_clear_mode(Viewport.CLEAR_MODE_ONLY_NEXT_FRAME)
 	#----
 	
+	yield(get_tree(),"idle_frame")
+	
 	var image = get_viewport().get_texture().get_data()
 	
 	image.flip_y()
-	if record_delay > 0:
-		VideoRenderServer.image_queue_save(image,render_directory+"/"+file_name+str(frame)+".png")
-		#image.save_png(render_directory+"/"+file_name+str(frame)+".png")
-	else:
-		record_delay -= 1
+	VideoRenderServer.image_queue_save(image,render_directory+"/"+file_name+str(frame)+".png")
 	
 	frame_number += 1
 	
