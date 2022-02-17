@@ -13,6 +13,7 @@ var main_render_node:AnimationPlayerRenderer
 var queued_action = Action.NONE
 enum Action {NONE,BATCH_RENDER}
 
+signal preview_animation
 
 func _ready():
 	pass # Replace with function body.
@@ -84,12 +85,16 @@ func _main_render_node_is_ready():
 	print(main_render_node.name," is ready.")
 	match queued_action:
 		Action.NONE:
-			main_render_node.play(main_render_node.animation_to_render)
-			main_render_node.connect("animation_finished",main_render_node,"_preview_ended")
+			preview_animation()
+			main_render_node.connect("animation_finished",self,"preview_animation")
 		Action.BATCH_RENDER:
 			render_queue.pop_front()
 			start_rendering(que_render_dir,que_file_name,que_fps,batch_frame_count)
-			
+
+
+func preview_animation(anim_name=""):
+	main_render_node.play(main_render_node.animation_to_render)
+	emit_signal("preview_animation")
 
 
 # SAVE IMAGE FUNCTIONS
