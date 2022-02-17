@@ -20,6 +20,7 @@ My goal with this tool is to mass-produce cheaply made animations to survive dur
 - [ ] Save watermark state.
 - [ ] For every track in AnimationRender check and add new key in first frame. By duplicating from first keyframe. (for now make sure to have keyframe in first frame for every track)
 - [ ] Allow options to exclude last frame. If you render batch, you will notice that there is extra frames. It's because of the last frames.
+- [ ] Add playback control to preview.
 
 ## low priority
 

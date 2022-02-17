@@ -32,16 +32,6 @@ func _ready():
 	VideoRenderServer._main_render_node_is_ready()
 	
 	return
-	#DEPRECATED
-	
-	if preview_only:
-		play(animation_to_render)
-		connect("animation_finished",self,"_preview_ended")
-		return
-
-
-func _preview_ended(animation_name):
-	play(current_animation)
 
 
 func prepare_to_record():

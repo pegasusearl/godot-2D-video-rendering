@@ -34,6 +34,14 @@ func _ready():
 	stop()
 	
 	VideoRenderServer.connect("progress_duration",self,"_progress_duration")
+	VideoRenderServer.connect("preview_animation",self,"start_preview")
+
+
+func start_preview():
+	seek(0,true)
+	if force_looping:
+		loop = true
+	play(current_animation)
 
 
 func _progress_duration(amount:float):
