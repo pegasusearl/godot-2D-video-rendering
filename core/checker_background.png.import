@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-ee1b4d2a494129069c1b555bcc722134.stex"
+path="res://.import/checker_background.png-36d2c69a9c08bc836329d5ed66361932.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/icon.png"
-dest_files=[ "res://.import/icon.png-ee1b4d2a494129069c1b555bcc722134.stex" ]
+source_file="res://core/checker_background.png"
+dest_files=[ "res://.import/checker_background.png-36d2c69a9c08bc836329d5ed66361932.stex" ]
 
 [params]
 
@@ -19,8 +19,8 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
-flags/filter=true
+flags/repeat=1
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

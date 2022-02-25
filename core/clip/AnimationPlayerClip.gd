@@ -19,9 +19,9 @@ func _ready():
 	if current_animation == "":
 		if get_animation_list().size() > 0:
 			current_animation = get_animation_list()[0]
-			print("current_animation is blank, using first animation : ",current_animation)
+			print(self.name,"'s current_animation is blank, using first animation: ",current_animation)
 		else:
-			print("current_animation is blank and no animation at all. Nothing to do.")
+			print(self.name,"'s current_animation is blank and no animation at all. Nothing to do.")
 			return
 	
 	current_duration = 0.0
@@ -35,6 +35,8 @@ func _ready():
 	
 	VideoRenderServer.connect("progress_duration",self,"_progress_duration")
 	VideoRenderServer.connect("preview_animation",self,"start_preview")
+	VideoRenderServer.connect("seek_sub_animation",self,"_seek_sub_animation")
+	VideoRenderServer.connect("stop_sub_animation",self,"stop")
 
 
 func start_preview():
@@ -42,6 +44,16 @@ func start_preview():
 	if force_looping:
 		loop = true
 	play(current_animation)
+
+
+func _seek_sub_animation(amount:float,and_play:bool = false):
+	if and_play:
+		play()
+	if loop:
+		seek(fmod(amount,length))
+	else:
+		seek(amount)
+	
 
 
 func _progress_duration(amount:float):

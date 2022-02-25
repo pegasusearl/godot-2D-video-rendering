@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://projects/samples/Node2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://core/checker_background.png" type="Texture" id=2]
+[ext_resource path="res://core/font/default24.tres" type="DynamicFont" id=3]
+[ext_resource path="res://core/gui/stylebox/playback_panel.tres" type="StyleBox" id=4]
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="SceneRenderer" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+flip_v = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = 492.0
+margin_top = 146.0
+margin_right = -492.0
+margin_bottom = 239.0
+custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+text = "This scene is still in progress. In the future I want to preview playback and render here inside a viewport so it will look more natural. Like a real app instead of hacky workaround.
+
+(also will be able to render with transparency probably, i dont know)"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -430.0
+margin_top = -250.5
+margin_right = 430.0
+margin_bottom = 250.5
+rect_min_size = Vector2( 250, 87.5 )
+filters = PoolStringArray( "*.scn", "*.tscn" )
+current_dir = "res://projects"
+current_path = "res://projects/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1920, 1080 )
+
+[node name="BackgroundOverride" type="Panel" parent="Viewport"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" parent="Viewport" instance=ExtResource( 1 )]

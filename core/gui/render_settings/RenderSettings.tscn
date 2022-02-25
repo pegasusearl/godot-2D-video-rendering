@@ -173,6 +173,7 @@ margin_left = 210.0
 margin_right = 276.0
 margin_bottom = 20.0
 text = "RENDER!"
+
 [connection signal="pressed" from="panel/vb/settings/browse" to="." method="_on_browse_pressed"]
 [connection signal="value_changed" from="panel/vb/thread_count/thread" to="." method="_on_thread_value_changed"]
 [connection signal="toggled" from="panel/vb/batch_renderer/active" to="panel/vb/batch_renderer" method="_on_active_toggled"]

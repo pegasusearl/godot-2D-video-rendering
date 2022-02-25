@@ -3,10 +3,15 @@ extends CanvasLayer
 var mode
 enum Mode {RENDER,PREVIEW}
 signal progress_duration (amount)
+signal seek_sub_animation (duration)
+signal stop_sub_animation ()
+signal flush_finished
 
 onready var notification = $GUI/Popup/notification
 onready var gui = $GUI
 onready var watermark_container = $Watermark
+onready var default_clear_mode = get_viewport().render_target_clear_mode
+var prescise_sub_animation_seeking := true
 
 var main_render_node:AnimationPlayerRenderer
 
@@ -16,7 +21,9 @@ enum Action {NONE,BATCH_RENDER}
 signal preview_animation
 
 func _ready():
-	pass # Replace with function body.
+	if ProjectSettings.get_setting("display/window/stretch/mode") != "viewport":
+		print("[WARNING!!] Window stretch mode is not viewport, rendering and preview will provide bad result.")
+		print(" ---------  Please manually fix it in ProjectSettings > Window > Stretch > Mode = Viewport")
 
 
 func _on_Close_pressed():
@@ -67,11 +74,11 @@ func _on_RenderSettings_batch_rendering_requested(render_dir, file_name, fps, qu
 func _render_finished( last_frame=0 ):
 	match queued_action:
 		Action.NONE:
-			gui.show()
-			
+			get_viewport().render_target_clear_mode = default_clear_mode
 			# Here render is actually finished
 			image_flush()
-			
+			yield(self,"flush_finished")
+			gui.show()
 		Action.BATCH_RENDER:
 			if render_queue.size() > 0:
 				batch_frame_count = last_frame
@@ -82,7 +89,7 @@ func _render_finished( last_frame=0 ):
 
 
 func _main_render_node_is_ready():
-	print(main_render_node.name," is ready.")
+	#print(main_render_node.name," is ready.")
 	match queued_action:
 		Action.NONE:
 			preview_animation()
@@ -154,6 +161,8 @@ func image_flush():
 	queued_images_count = 0
 	queued_images.clear()
 	main_render_node.halt = false
+	
+	emit_signal("flush_finished")
 
 
 func _thread_savepng(job_list):
@@ -165,3 +174,22 @@ func _thread_savepng(job_list):
 func _on_Render_set_thread(count):
 	thread_count = count
 
+
+func render_node_available() -> bool:
+	return (main_render_node != null and main_render_node.is_in_group("AnimationPlayerRenderer"))
+
+
+var time_buffer = 0.0
+func _on_Button_pressed():
+	if render_node_available():
+		if main_render_node.is_playing():
+			time_buffer = main_render_node.current_animation_position
+			main_render_node.stop()
+			if prescise_sub_animation_seeking:
+				emit_signal("stop_sub_animation")
+		else:
+			main_render_node.play()
+			main_render_node.seek(time_buffer)
+			if prescise_sub_animation_seeking:
+				emit_signal("seek_sub_animation",time_buffer,true)
+	

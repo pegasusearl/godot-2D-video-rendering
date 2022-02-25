@@ -24,6 +24,10 @@ var length := 0.0
 var frame_delay := 0.1
 
 
+func _init():
+	add_to_group("AnimationPlayerRenderer")
+
+
 func _ready():
 	
 	VideoRenderServer.main_render_node = self
