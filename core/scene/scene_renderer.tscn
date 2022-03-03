@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://projects/samples/Node2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://projects/samples/rolling_logo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/checker_background.png" type="Texture" id=2]
 [ext_resource path="res://core/font/default24.tres" type="DynamicFont" id=3]
 [ext_resource path="res://core/gui/stylebox/playback_panel.tres" type="StyleBox" id=4]

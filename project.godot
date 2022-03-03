@@ -12,22 +12,22 @@ _global_script_classes=[ {
 "base": "AnimatedSprite",
 "class": "AnimatedSpriteClip",
 "language": "GDScript",
-"path": "res://core/clip/AnimatedSpriteClip.gd"
+"path": "res://core/class/clip/animated_sprite_clip.gd"
 }, {
 "base": "AnimationPlayer",
 "class": "AnimationPlayerClip",
 "language": "GDScript",
-"path": "res://core/clip/AnimationPlayerClip.gd"
+"path": "res://core/class/clip/animated_player_clip.gd"
 }, {
 "base": "AnimationPlayer",
 "class": "AnimationPlayerRenderer",
 "language": "GDScript",
-"path": "res://core/AnimationPlayerRenderer.gd"
+"path": "res://core/class/animation_player_renderer.gd"
 }, {
 "base": "Node2D",
 "class": "SequentialModulation",
 "language": "GDScript",
-"path": "res://core/element/SequentialModulation.gd"
+"path": "res://core/class/element/sequential_modulation.gd"
 } ]
 _global_script_class_icons={
 "AnimatedSpriteClip": "",
@@ -39,17 +39,18 @@ _global_script_class_icons={
 [application]
 
 config/name="VideoRender2D"
-run/main_scene="res://projects/samples/Node2D.tscn"
+run/main_scene="res://projects/samples/rolling_logo.tscn"
 config/icon="res://core/icon.png"
 
 [autoload]
 
-VideoRenderServer="*res://core/singleton/VideoRenderServer.tscn"
+VideoRenderServer="*res://core/singleton/video_render_server.tscn"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/stretch/mode="viewport"
 
 [importer_defaults]
 
@@ -78,4 +79,4 @@ texture={
 [rendering]
 
 environment/default_clear_color=Color( 1, 1, 1, 1 )
-environment/default_environment="res://core/default_env.tres"
+environment/default_environment="res://default_env.tres"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://core/singleton/VideoRenderServer.gd" type="Script" id=1]
+[ext_resource path="res://core/singleton/video_render_server.gd" type="Script" id=1]
 [ext_resource path="res://core/gui/popup/notification.gd" type="Script" id=2]
 [ext_resource path="res://core/font/DejaVuSans.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://core/gui/render_settings/RenderSettings.tscn" type="PackedScene" id=4]
@@ -9,10 +9,11 @@
 [ext_resource path="res://core/gui/watermark/Watermark.tscn" type="PackedScene" id=7]
 [ext_resource path="res://core/gui/playback/Playback.gd" type="Script" id=8]
 [ext_resource path="res://core/font/default24.tres" type="DynamicFont" id=9]
-[ext_resource path="res://core/singleton/TimeSlider.gd" type="Script" id=10]
-[ext_resource path="res://core/singleton/PresciseSubSeeking.gd" type="Script" id=11]
+[ext_resource path="res://core/object/time_slider.gd" type="Script" id=10]
+[ext_resource path="res://core/object/prescise_sub_seeking.gd" type="Script" id=11]
 [ext_resource path="res://core/gui/stylebox/playback_panel.tres" type="StyleBox" id=12]
 [ext_resource path="res://core/gui/playback/scene_path.gd" type="Script" id=13]
+[ext_resource path="res://core/gui/stylebox/empty.tres" type="StyleBox" id=14]
 
 [sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 32.0
@@ -50,7 +51,10 @@ border_width_bottom = 3
 border_color = Color( 0.176471, 0.196078, 0.211765, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
-expand_margin_top = 4.0
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 6.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=5]
 content_margin_left = 12.0
@@ -66,8 +70,6 @@ border_color = Color( 0.117647, 0.12549, 0.129412, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 shadow_size = 1
-
-[sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 1, 1, 1, 0.819608 )
@@ -103,7 +105,7 @@ __meta__ = {
 margin_right = 1920.0
 margin_bottom = 35.0
 
-[node name="HSeparator" type="HSeparator" parent="GUI/Layout/hb"]
+[node name="HSeparator" type="Control" parent="GUI/Layout/hb"]
 margin_right = 1837.0
 margin_bottom = 35.0
 size_flags_horizontal = 3
@@ -132,7 +134,7 @@ custom_colors/font_color_fg = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 7 )
 custom_styles/tab_fg = SubResource( 4 )
 custom_styles/tab_bg = SubResource( 5 )
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
