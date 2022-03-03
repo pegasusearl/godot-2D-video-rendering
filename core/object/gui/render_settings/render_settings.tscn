@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://core/gui/render_settings/RenderSettings.gd" type="Script" id=1]
-[ext_resource path="res://core/gui/render_settings/batch_renderer.gd" type="Script" id=2]
+[ext_resource path="res://core/object/gui/render_settings/render_settings.gd" type="Script" id=1]
+[ext_resource path="res://core/object/gui/render_settings/batch_renderer.gd" type="Script" id=2]
 
 [node name="RenderSettings" type="CenterContainer"]
 anchor_right = 1.0
